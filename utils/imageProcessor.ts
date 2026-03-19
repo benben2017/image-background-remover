@@ -1,23 +1,28 @@
-export async function processImage(file: File): Promise<string> {
-  const formData = new FormData();
-  formData.append('image', file);
+'use client';
 
-  const response = await fetch('/api/remove-bg', {
+export async function processImage(file: File): Promise<string> {
+  const API_KEY = 'n5bj6dzHwoFgJe45GBQu8z91';
+  
+  const formData = new FormData();
+  formData.append('image_file', file);
+  formData.append('size', 'auto');
+
+  const response = await fetch('https://api.remove.bg/v1.0/removebg', {
     method: 'POST',
+    headers: {
+      'X-Api-Key': API_KEY,
+    },
     body: formData,
   });
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({
-      error: '请求失败，请检查网络连接',
-    }));
-    throw new Error(errorData.error || `HTTP ${response.status}: 处理失败`);
+    const errorText = await response.text();
+    console.error('Remove.bg API error:', response.status, errorText);
+    throw new Error(`API 错误 (${response.status}): 请检查 API Key 或网络连接`);
   }
 
-  // 获取二进制数据
   const blob = await response.blob();
   
-  // 转换为 base64 字符串
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as string);

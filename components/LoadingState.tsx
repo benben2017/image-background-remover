@@ -12,6 +12,12 @@ const LoadingState: React.FC = () => {
         我们正在使用 AI 智能去除背景，请稍候...
       </p>
       
+      <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+        <p className="text-sm text-blue-700">
+          💡 提示：第一次使用时需要下载 AI 模型（约 30MB），后续处理会更快！
+        </p>
+      </div>
+      
       <div className="flex justify-center space-x-1">
         <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-slow"></div>
         <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse-slow" style={{ animationDelay: '0.2s' }}></div>
