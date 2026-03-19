@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  distDir: 'out',
   images: {
-    domains: ['localhost'],
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
